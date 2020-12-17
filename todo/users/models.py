@@ -16,32 +16,11 @@ class User(AbstractUser):
 def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.create(user=instance)
-        # email_token = EmailToken.objects.create(user=instance)
-        # user = instance
 
-        # context = {
-        #     'first_name': user.first_name,
-        #     'unsubscribe': "https://befounders.com/settings", 
-        #     'verify_email_url': "{}/verify-email/{}".format(config.UI_ENDPOINT, email_token.key)
-        # }
-
-        # # render email text
-        # email_html_message = render_to_string('email/user_verify_email.html', context)
-        # email_plaintext_message = render_to_string('email/user_verify_email.txt', context)
-
-        # msg = EmailMultiAlternatives(
-        #     # title:
-        #     "Be Founders: Verify Email",
-        #     # message:
-        #     email_plaintext_message,
-        #     # from:
-        #     "Be Founders <no-reply@befounders.com>",
-        #     # to:
-        #     [user.email]
-        # )
-        # msg.attach_alternative(email_html_message, "text/html")
-        # msg.send()
-
+class Task(models.Model): 
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    description = models.TextField()
+    priority = models.IntegerField()
 
 class Profile(models.Model): 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)

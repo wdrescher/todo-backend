@@ -22,7 +22,7 @@ import uuid
 from todo import config
 from .models import User, Profile
 from .permissions import IsUserOrReadOnly
-from .serializers import CreateUserSerializer, UserSerializer
+from .serializers import CreateUserSerializer, UserSerializer, ProfileSerializer
 
 class UserViewSet(mixins.RetrieveModelMixin,
                   mixins.UpdateModelMixin,
