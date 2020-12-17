@@ -1,0 +1,11 @@
+*************
+Be Founders
+*************
+
+
+New Message
+
+Hi {{username}} you recieved a message! Login to check it out.
+
+        https://befounders.com
+

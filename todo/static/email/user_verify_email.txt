@@ -1,0 +1,5 @@
+Be Founders
+Thanks for joining Be Founders
+Activate your account by clicking the link below: 
+{{verify_email_url}}
+Just confirming you're you!
