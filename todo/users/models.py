@@ -17,16 +17,18 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.create(user=instance)
 
-class Task(models.Model): 
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    description = models.TextField()
-    priority = models.IntegerField()
-
 class Profile(models.Model): 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     def __str__(self): 
         return self.user.email    
+
+
+class Task(models.Model): 
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    description = models.TextField()
+    priority = models.IntegerField(default=1)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

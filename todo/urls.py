@@ -5,7 +5,7 @@ from django.contrib import admin
 from django.views.generic.base import RedirectView
 from rest_framework.routers import DefaultRouter
 from rest_framework.authtoken import views
-from .users.views import UserViewSet, UserCreateViewSet, ProfileRetrieveView
+from .users.views import UserViewSet, UserCreateViewSet, ProfileRetrieveView, TaskView
 
 router = DefaultRouter()
 router.register(r'users', UserViewSet)
@@ -16,6 +16,7 @@ urlpatterns = [
     path('api/v1/', include(router.urls)),
     path('api-token-auth/', views.obtain_auth_token),
     path('profile/', ProfileRetrieveView.as_view()),
+    path('tasks/', TaskView.as_view()), 
     path(r'reset/', include('django_rest_passwordreset.urls', namespace='password_reset')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     # the 'api-root' from django rest-frameworks default router

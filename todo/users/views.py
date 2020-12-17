@@ -20,9 +20,9 @@ from social_django.utils import psa
 import uuid
 
 from todo import config
-from .models import User, Profile
+from .models import User, Profile, Task
 from .permissions import IsUserOrReadOnly
-from .serializers import CreateUserSerializer, UserSerializer, ProfileSerializer
+from .serializers import CreateUserSerializer, UserSerializer, ProfileSerializer, TaskSerializer
 
 class UserViewSet(mixins.RetrieveModelMixin,
                   mixins.UpdateModelMixin,
@@ -57,6 +57,23 @@ class ProfileRetrieveView(APIView):
         else: 
             return Response(False)
 
+class TaskView(APIView): 
+    def get(self, request): 
+        tasks = Task.objects.filter(user=request.user)
+        serializer = TaskSerializer(tasks, many=True)
+        return Response(serializer.data)
+
+    def post(self, request): 
+        if "id" in request.data and "description" in request.data and "priority" in request.data: 
+            task = Task.objects.get(id=request.data["id"])
+            if task is None: 
+                Task.objects.create(description=request.data["description"])
+            else: 
+                task.description = request.data["description"]
+                task.priority = request.data["priority"]
+                task.save()
+            return Response(status=status.HTTP_202_ACCEPTED)
+        return Response()
 
 @api_view(http_method_names=['POST'])
 @permission_classes([AllowAny])
