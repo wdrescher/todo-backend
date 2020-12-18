@@ -30,6 +30,9 @@ class Task(models.Model):
     priority = models.IntegerField(default=1)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    def __str__(self): 
+        return self.description
+
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:

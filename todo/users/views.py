@@ -64,16 +64,20 @@ class TaskView(APIView):
         return Response(serializer.data)
 
     def post(self, request): 
-        if "id" in request.data and "description" in request.data and "priority" in request.data: 
-            task = Task.objects.get(id=request.data["id"])
-            if task is None: 
-                Task.objects.create(description=request.data["description"])
+        if "description" in request.data and "priority" in request.data: 
+            task = None
+            if "id" in request.data: 
+                task = Task.objects.get(id=request.data["id"])
+                if task is None: 
+                    return Response(status=status.HTTP_304_NOT_MODIFIED)
+                else: 
+                    task.description = request.data["description"]
+                    task.priority = request.data["priority"]
+                    task.save()
             else: 
-                task.description = request.data["description"]
-                task.priority = request.data["priority"]
-                task.save()
-            return Response(status=status.HTTP_202_ACCEPTED)
-        return Response()
+                task = Task.objects.create(description=request.data["description"], priority=request.data["priority"], user=request.user)
+            return Response(TaskSerializer(task).data)
+        return Response(status=status.HTTP_403_FORBIDDEN)
 
 @api_view(http_method_names=['POST'])
 @permission_classes([AllowAny])
