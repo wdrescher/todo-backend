@@ -7,7 +7,7 @@ class Production(Common):
     SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
     # Site
     # https://docs.djangoproject.com/en/2.0/ref/settings/#allowed-hosts
-    ALLOWED_HOSTS = [".todooly.s3-website-us-east-1.amazonaws.com"]
+    ALLOWED_HOSTS = [".todooly.s3-website-us-east-1.amazonaws.com", ".peerpal-todo.herokuapp.com"]
     INSTALLED_APPS += ("gunicorn", )
 
     # Static files (CSS, JavaScript, Images)
