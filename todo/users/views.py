@@ -57,6 +57,18 @@ class ProfileRetrieveView(APIView):
         else: 
             return Response(False)
 
+class CompleteTaskView(APIView): 
+    def post(self, request): 
+        if "id" in request.data: 
+            task_id = request.data["id"]
+            task = Task.objects.get(id=task_id)
+            if (task is None): 
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+            task.complete = False if task.complete else True
+            task.save()
+            return Response(status=status.HTTP_202_ACCEPTED)
+        return Response(status=status.HTTP_304_NOT_MODIFIED)
+
 class TaskView(APIView): 
     def get(self, request): 
         tasks = Task.objects.filter(user=request.user)
