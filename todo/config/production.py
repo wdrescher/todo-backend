@@ -7,7 +7,7 @@ class Production(Common):
     SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
     # Site
     # https://docs.djangoproject.com/en/2.0/ref/settings/#allowed-hosts
-    ALLOWED_HOSTS = ["founder-base-api.herokuapp.com", "befounders-staging.herokuapp.com"]
+    ALLOWED_HOSTS = [".todooly.s3-website-us-east-1.amazonaws.com"]
     INSTALLED_APPS += ("gunicorn", )
 
     # Static files (CSS, JavaScript, Images)
@@ -23,7 +23,7 @@ class Production(Common):
     AWS_AUTO_CREATE_BUCKET = True
     AWS_QUERYSTRING_AUTH = False
     MEDIA_URL = f'https://s3.amazonaws.com/{AWS_STORAGE_BUCKET_NAME}/media/'
-    UI_ENDPOINT = "https://befounders.com"
+    UI_ENDPOINT = "http://todooly.s3-website-us-east-1.amazonaws.com/"
 
     CORS_ALLOW_ALL_ORIGINS = True
 
