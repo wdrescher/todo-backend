@@ -25,10 +25,7 @@ class Production(Common):
     MEDIA_URL = f'https://s3.amazonaws.com/{AWS_STORAGE_BUCKET_NAME}/media/'
     UI_ENDPOINT = "https://befounders.com"
 
-    CORS_ALLOWED_ORIGIN_REGEXES = [
-        r"https://\w+\.befounders\.com$",
-        r"https://(.*\.)*befounders\.com$",
-    ]
+    CORS_ALLOW_ALL_ORIGINS = True
 
     # https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching#cache-control
     # Response can be cached by browser and any intermediary caches (i.e. it is "public") for up to 1 day
