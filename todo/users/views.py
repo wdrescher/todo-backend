@@ -85,9 +85,11 @@ class TaskView(APIView):
                 else: 
                     task.description = request.data["description"]
                     task.priority = request.data["priority"]
-                    task.save()
             else: 
                 task = Task.objects.create(description=request.data["description"], priority=request.data["priority"], user=request.user)
+            if "date" in request.data: 
+                task.due_date = request.data["date"]
+            task.save()
             return Response(TaskSerializer(task).data)
         return Response(status=status.HTTP_403_FORBIDDEN)
 
